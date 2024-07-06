@@ -14,9 +14,10 @@ class homeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Scaffold(
         body: ListTile(
-      trailing: Text('Data'),
+      trailing: Text('More'),
       title: Text('My Account'),
       subtitle: Text('this a new '),
+      leading: Icon(Icons.people_alt_outlined),
     ));
   }
 }
