@@ -51,10 +51,7 @@ class _AddformState extends State<Addform> {
                   ),
                 ),
                 const SizedBox(height: 20),
-                const Text(
-                  "অভিভাবকের নাম লিখুন",
-                  style: TextStyle(fontSize: 23, color: Color(0xff89967A)),
-                ),
+                const Text("অভিভাবকের নাম লিখুন"),
                 TextFormField(
                   decoration: const InputDecoration(
                     border: OutlineInputBorder(
