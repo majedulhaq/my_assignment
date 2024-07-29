@@ -11,6 +11,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          appBarTheme: const AppBarTheme(
+              centerTitle: true,
+              titleTextStyle: TextStyle(
+                  fontFamily: "HindSiliguri",
+                  color: Colors.black,
+                  fontSize: 24))),
       debugShowCheckedModeBanner: false,
       home: Stinfo(),
     );

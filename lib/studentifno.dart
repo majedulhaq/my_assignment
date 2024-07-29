@@ -12,7 +12,7 @@ class _StinfoState extends State<Stinfo> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Student info'),
+        title: const Text('ছাত্র তথ্য'),
         centerTitle: true,
         backgroundColor: const Color(0xffDFE9EC),
       ),
