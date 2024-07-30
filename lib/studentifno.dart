@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:my_assignment/addmissinform.dart';
 
-class Stinfo extends StatefulWidget {
-  const Stinfo({super.key});
+class Stinfo extends StatelessWidget {
+  final StudentInfo student;
 
-  @override
-  State<Stinfo> createState() => _StinfoState();
-}
+  const Stinfo({required this.student, super.key});
 
-class _StinfoState extends State<Stinfo> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,16 +14,16 @@ class _StinfoState extends State<Stinfo> {
         centerTitle: true,
         backgroundColor: const Color(0xffDFE9EC),
       ),
-      body: const Card(
+      body: Card(
         color: Colors.white60,
         child: SizedBox(
           height: 290,
           child: Column(
             children: [
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              SizedBox(
+              const SizedBox(
                 height: 100,
                 width: 100,
                 child: CircleAvatar(
@@ -33,37 +31,39 @@ class _StinfoState extends State<Stinfo> {
                   backgroundImage: AssetImage("assets/images/me.jpg"),
                 ),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Padding(
-                padding: EdgeInsets.only(left: 20),
+                padding: const EdgeInsets.only(left: 20),
                 child: Row(
                   children: [
-                    Text(
+                    const Text(
                       'নাম\nজামাত\nমোবাইল\nঅভিভাবক',
                       textAlign: TextAlign.left,
                       style: TextStyle(
-                          fontSize: 23,
-                          fontFamily: "HindSiliguri",
-                          fontWeight: FontWeight.w700,
-                          color: Color(0xff89967A)),
+                        fontSize: 23,
+                        fontFamily: "HindSiliguri",
+                        fontWeight: FontWeight.w700,
+                        color: Color(0xff89967A),
+                      ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
-                    Text(
+                    const Text(
                       ':\n:\n:\n:',
                       textAlign: TextAlign.right,
                       style: TextStyle(fontSize: 23),
                     ),
-                    SizedBox(width: 15),
+                    const SizedBox(width: 15),
                     Text(
-                      'মাজেদুল হক\nতাকমীল ফিল হাদীস \n01734882559\nনজরুল ইসলাম',
-                      style: TextStyle(
-                          fontSize: 23,
-                          fontFamily: "HindSiliguri",
-                          color: Colors.black54),
+                      '${student.stname}\n${student.classname}\n${student.number}\n${student.gardianname}',
+                      style: const TextStyle(
+                        fontSize: 23,
+                        fontFamily: "HindSiliguri",
+                        color: Colors.black54,
+                      ),
                       textAlign: TextAlign.left,
-                    )
+                    ),
                   ],
                 ),
               )

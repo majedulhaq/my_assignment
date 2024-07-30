@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
             appBar: AppBar(
               backgroundColor: const Color(0xAAE0EDDC),
               title: const Text(
-                'Preাাাsent',
+                'Present',
                 style: TextStyle(color: Color(0xAA6A7381)),
               ),
               centerTitle: true,
