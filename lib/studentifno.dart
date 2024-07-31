@@ -4,7 +4,7 @@ import 'package:my_assignment/addmissinform.dart';
 class Stinfo extends StatelessWidget {
   final StudentInfo student;
 
-  const Stinfo({required this.student, super.key});
+  const Stinfo({super.key, required this.student});
 
   @override
   Widget build(BuildContext context) {

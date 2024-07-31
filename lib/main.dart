@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'addmissinform.dart';
+import 'package:my_assignment/checkbox.dart';
 
 void main(List<String> args) {
   runApp(MyApp());
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       debugShowCheckedModeBanner: false,
-      home: Addform(),
+      home: ChBox(),
     );
   }
 }

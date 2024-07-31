@@ -34,7 +34,7 @@ class _MyAppState extends State<MyApp> {
                             children: [
                               TextField(
                                 controller: taskc,
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                     border: OutlineInputBorder()),
                               ),
                               ElevatedButton(
@@ -76,8 +76,8 @@ class _MyAppState extends State<MyApp> {
                         setState(() {});
                       },
                       icon: jamat[index].isdone == true
-                          ? Icon(Icons.done, color: Colors.green)
-                          : Icon(Icons.close, color: Colors.red),
+                          ? const Icon(Icons.done, color: Colors.green)
+                          : const Icon(Icons.close, color: Colors.red),
                     ));
               },
             ),
