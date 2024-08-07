@@ -60,7 +60,7 @@ class MyHomePage extends StatelessWidget {
           ElevatedButton(
             onPressed: () {
               final snackBar = SnackBar(
-                content: Text('Button pressed'),
+                content: Text('Button pressed!'),
               );
 
               ScaffoldMessenger.of(context).showSnackBar(snackBar);
