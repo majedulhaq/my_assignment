@@ -18,7 +18,6 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.green,
             title: const Text("Greeting App"),
-            centerTitle: true,
           ),
           body: const MyHomePage(),
         ),
