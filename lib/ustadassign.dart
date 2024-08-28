@@ -31,9 +31,9 @@ class Responsivedesign extends StatelessWidget {
         if (constraints.maxWidth >= 1200) {
           return LaptopOrLargeScreen();
         } else if (constraints.maxWidth >= 800) {
-          return TabletLayout();
+          return TabletView();
         } else {
-          return MobileLayout();
+          return MobileView();
         }
       },
     );
@@ -89,7 +89,7 @@ class LaptopOrLargeScreen extends StatelessWidget {
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       'FLUTTER WEB.\nTHE BASICS',
                       textAlign: TextAlign.center,
@@ -135,7 +135,7 @@ class LaptopOrLargeScreen extends StatelessWidget {
   }
 }
 
-class TabletLayout extends StatelessWidget {
+class TabletView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -226,7 +226,7 @@ class TabletLayout extends StatelessWidget {
   }
 }
 
-class MobileLayout extends StatelessWidget {
+class MobileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
