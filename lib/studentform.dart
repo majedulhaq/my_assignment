@@ -98,7 +98,6 @@ class _AddformState extends State<Addform> {
                     backgroundColor: WidgetStatePropertyAll(Color(0xff89967A)),
                   ),
                   onPressed: () {
-                    // Create a StudentInfo instance with the input data
                     StudentInfo student = StudentInfo(
                       namecon.text,
                       jamatcon.text,
@@ -106,7 +105,6 @@ class _AddformState extends State<Addform> {
                       gardiancon.text,
                     );
 
-                    // Navigate to Stinfo screen and pass the student data
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -137,6 +135,5 @@ class StudentInfo {
   String classname;
   String number;
   String gardianname;
-
   StudentInfo(this.stname, this.classname, this.number, this.gardianname);
 }

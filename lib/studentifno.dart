@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_assignment/addmissinform.dart';
+import 'package:my_assignment/studentform.dart';
 
 class Stinfo extends StatelessWidget {
   final StudentInfo student;
