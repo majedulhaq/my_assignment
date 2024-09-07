@@ -39,18 +39,23 @@ class _ProductScreenState extends State<ProductScreen> {
 
   List<Map<String, String>> products = [
     {
+      'image': 'https://img.fruugo.com/product/1/21/395043211_max.jpg',
       'name': 'PullOver',
       'color': 'Black',
       'size': 'L',
       'price': '30',
     },
     {
+      'image':
+          'https://stonefieldbd.com/public/uploads/products/photos/h407CJECqkKUSDmr8EnZLTbW8DsCHtE684zL2FUw.jpeg',
       'name': 'T-Shirt',
       'color': 'Grey',
       'size': 'L',
       'price': '20',
     },
     {
+      'image':
+          'https://m.media-amazon.com/images/I/B1pppR4gVKL._CLa%7C2140%2C2000%7C616mtWb4SkL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_UY1000_.png',
       'name': 'Sport Dress',
       'color': 'Black',
       'size': 'M',
@@ -58,7 +63,6 @@ class _ProductScreenState extends State<ProductScreen> {
     },
   ];
 
-  // Function to calculate total price based on the number of items
   int calculateTotalAmount() {
     int total = 0;
     for (int i = 0; i < products.length; i++) {
@@ -105,8 +109,11 @@ class _ProductScreenState extends State<ProductScreen> {
                         topLeft: Radius.circular(20),
                         bottomLeft: Radius.circular(20),
                       ),
+                      // Using image link from the products map
                       child: Image.network(
-                          'https://merchshop.in/wp-content/uploads/2019/08/Flutter-t-shirt-black.jpg'),
+                        product['image']!,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                   Padding(
@@ -195,7 +202,6 @@ class _ProductScreenState extends State<ProductScreen> {
                       children: [
                         const Icon(Icons.more_vert_sharp),
                         const SizedBox(height: 60),
-                        // Price updated according to the number of items
                         Text(
                           '${totalPrice}\$',
                           style: const TextStyle(
@@ -238,15 +244,16 @@ class _ProductScreenState extends State<ProductScreen> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
                 onPressed: () {
-                  // Use the correct scaffoldMessengerKey to show Snackbar
                   GlobalScaffoldMessenger.showSnackBar(
                     const SnackBar(
                       content: Center(
                           child: Text(
                         'Congradulations!',
-                        style: TextStyle(fontSize: 25),
+                        style: TextStyle(
+                            fontSize: 25, fontWeight: FontWeight.bold),
                       )),
-                      duration: Duration(seconds: 2),
+                      backgroundColor: Colors.green,
+                      duration: Duration(seconds: 1),
                     ),
                   );
                 },
@@ -267,7 +274,6 @@ class _ProductScreenState extends State<ProductScreen> {
   }
 }
 
-// Global class to manage ScaffoldMessengerKey
 class GlobalScaffoldMessenger {
   static final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
