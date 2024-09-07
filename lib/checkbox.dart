@@ -43,7 +43,7 @@ class _ProductScreenState extends State<ProductScreen> {
       'name': 'PullOver',
       'color': 'Black',
       'size': 'L',
-      'price': '30',
+      'price': '51',
     },
     {
       'image':
@@ -51,7 +51,7 @@ class _ProductScreenState extends State<ProductScreen> {
       'name': 'T-Shirt',
       'color': 'Grey',
       'size': 'L',
-      'price': '20',
+      'price': '30',
     },
     {
       'image':
@@ -59,7 +59,7 @@ class _ProductScreenState extends State<ProductScreen> {
       'name': 'Sport Dress',
       'color': 'Black',
       'size': 'M',
-      'price': '50',
+      'price': '43',
     },
   ];
 
