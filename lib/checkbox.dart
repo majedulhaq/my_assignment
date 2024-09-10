@@ -39,19 +39,19 @@ class _ProductScreenState extends State<ProductScreen> {
 
   List<Map<String, String>> products = [
     {
-      'image': 'https://img.fruugo.com/product/1/21/395043211_max.jpg',
+      'image': 'https://merch-cdn.streamelements.com/merch/store-images/cdab6508-6fa6-4067-9b9f-18c175a4fcd4.png',
       'name': 'PullOver',
       'color': 'Black',
       'size': 'L',
-      'price': '30',
+      'price': '51',
     },
     {
       'image':
-          'https://stonefieldbd.com/public/uploads/products/photos/h407CJECqkKUSDmr8EnZLTbW8DsCHtE684zL2FUw.jpeg',
+          'https://m.media-amazon.com/images/I/B1pppR4gVKL._CLa%7C2140%2C2000%7C514lN8EuAvL.png%7C0%2C0%2C2140%2C2000%2B0.0%2C0.0%2C2140.0%2C2000.0_AC_UY580_.png',
       'name': 'T-Shirt',
       'color': 'Grey',
       'size': 'L',
-      'price': '20',
+      'price': '30',
     },
     {
       'image':
@@ -59,7 +59,7 @@ class _ProductScreenState extends State<ProductScreen> {
       'name': 'Sport Dress',
       'color': 'Black',
       'size': 'M',
-      'price': '50',
+      'price': '43',
     },
   ];
 
