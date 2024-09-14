@@ -39,7 +39,8 @@ class _ProductScreenState extends State<ProductScreen> {
 
   List<Map<String, String>> products = [
     {
-      'image': 'https://merch-cdn.streamelements.com/merch/store-images/cdab6508-6fa6-4067-9b9f-18c175a4fcd4.png',
+      'image':
+          'https://merch-cdn.streamelements.com/merch/store-images/cdab6508-6fa6-4067-9b9f-18c175a4fcd4.png',
       'name': 'PullOver',
       'color': 'Black',
       'size': 'L',
