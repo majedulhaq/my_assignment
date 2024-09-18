@@ -1,8 +1,6 @@
-import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart';
 
 void main() => runApp(
       DevicePreview(
@@ -18,12 +16,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        elevatedButtonTheme: ElevatedButtonThemeData(),
         appBarTheme: const AppBarTheme(
           centerTitle: true,
           titleTextStyle: TextStyle(
+            fontFamily: "HindSiliguri",
             color: Colors.black,
-            fontWeight: FontWeight.bold,
             fontSize: 24,
           ),
         ),
@@ -54,52 +51,15 @@ class ProductInfos extends StatefulWidget {
 
 class _ProductInfosState extends State<ProductInfos> {
   @override
-  void initState() {
-    super.initState();
-    getProductList(); // Fetch API data when the widget initializes
-  }
-
-  Future<void> getProductList() async {
-    Uri url = Uri.parse('http://164.68.107.70:6060/api/v1/ReadProduct');
-    Response response = await get(url);
-
-    if (response.statusCode == 200) {
-      Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-      List<ProductClass> fetchedProducts = [];
-      for (var item in jsonResponse['data']) {
-        ProductClass productClass = ProductClass(
-          productId: item['_id'],
-          nameofproduct: item['ProductName'],
-          unitofproduct: item['UnitPrice'],
-          totalofproduct: item['TotalPrice'],
-          imageofproduct: item['Img'],
-          codeofproduct: item['ProductCode'],
-          quantityofproduct: item['Qty'],
-          createdDate: item['CreatedDate'],
-        );
-        fetchedProducts.add(productClass);
-      }
-      setState(() {
-        widget.products = fetchedProducts;
-      });
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductForm(onAddProduct: _addProduct),
-            ),
-          ).then((_) {
-            // Clear the form fields after adding a new product
-            setState(() {});
-          });
-        },
+        onPressed: () => Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ProductForm(onAddProduct: _addProduct),
+          ),
+        ),
         child: const Icon(Icons.add),
       ),
       appBar: AppBar(
@@ -123,7 +83,65 @@ class _ProductInfosState extends State<ProductInfos> {
                       fontWeight: FontWeight.bold,
                       color: Colors.red)),
               tileColor: const Color(0xFFECF1F8),
-              subtitle: productShow(product, context, index),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Product Code: ${product.codeofproduct}',
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black54)),
+                  Text('Unit Price: ${product.unitofproduct}',
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black54)),
+                  Text('Quantity: ${product.quantityofproduct}',
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black54)),
+                  Text('Total Price: ${product.totalofproduct}',
+                      style:
+                          const TextStyle(fontSize: 20, color: Colors.black54)),
+                  const Divider(
+                    color: Colors.amber,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton.icon(
+                        onPressed: () {
+                          // Navigate to the ProductForm with the product to edit
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductForm(
+                                onAddProduct: (updatedProduct) =>
+                                    _updateProduct(index, updatedProduct),
+                                product: product,
+                              ),
+                            ),
+                          );
+                        },
+                        icon: const Icon(
+                          Icons.edit,
+                          color: Colors.red,
+                        ),
+                        label: const Text(
+                          "Edit",
+                          style: TextStyle(color: Colors.red),
+                        ),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          _deleteProduct(index);
+                        },
+                        icon: const Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        label: const Text("Delete",
+                            style: TextStyle(color: Colors.red)),
+                      )
+                    ],
+                  )
+                ],
+              ),
             );
           },
           separatorBuilder: (BuildContext context, int index) {
@@ -131,63 +149,6 @@ class _ProductInfosState extends State<ProductInfos> {
           },
         ),
       ),
-    );
-  }
-
-  Column productShow(ProductClass product, BuildContext context, int index) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text('Product Code: ${product.codeofproduct}',
-            style: const TextStyle(fontSize: 20, color: Colors.black54)),
-        Text('Unit Price: ${product.unitofproduct}',
-            style: const TextStyle(fontSize: 20, color: Colors.black54)),
-        Text('Quantity: ${product.quantityofproduct}',
-            style: const TextStyle(fontSize: 20, color: Colors.black54)),
-        Text('Total Price: ${product.totalofproduct}',
-            style: const TextStyle(fontSize: 20, color: Colors.black54)),
-        const Divider(
-          color: Colors.amber,
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            TextButton.icon(
-              onPressed: () {
-                // Navigate to the ProductForm with the product to edit
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ProductForm(
-                      onAddProduct: (updatedProduct) =>
-                          _updateProduct(index, updatedProduct),
-                      product: product,
-                    ),
-                  ),
-                );
-              },
-              icon: const Icon(
-                Icons.edit,
-                color: Colors.red,
-              ),
-              label: const Text(
-                "Edit",
-                style: TextStyle(color: Colors.red),
-              ),
-            ),
-            TextButton.icon(
-              onPressed: () {
-                _deleteProduct(index);
-              },
-              icon: const Icon(
-                Icons.delete,
-                color: Colors.red,
-              ),
-              label: const Text("Delete", style: TextStyle(color: Colors.red)),
-            )
-          ],
-        )
-      ],
     );
   }
 
@@ -221,27 +182,22 @@ class ProductForm extends StatefulWidget {
 }
 
 class _ProductFormState extends State<ProductForm> {
-  TextEditingController productIdController = TextEditingController();
   TextEditingController productNameController = TextEditingController();
   TextEditingController unitPriceController = TextEditingController();
   TextEditingController totalPriceController = TextEditingController();
   TextEditingController productCodeController = TextEditingController();
   TextEditingController productQuantityController = TextEditingController();
-  TextEditingController createdDateController = TextEditingController();
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
 
   @override
   void initState() {
     super.initState();
-
     if (widget.product != null) {
-      productIdController.text = widget.product!.productId;
       productNameController.text = widget.product!.nameofproduct;
       unitPriceController.text = widget.product!.unitofproduct;
       totalPriceController.text = widget.product!.totalofproduct;
       productCodeController.text = widget.product!.codeofproduct;
       productQuantityController.text = widget.product!.quantityofproduct;
-      createdDateController.text = widget.product!.createdDate;
     }
   }
 
@@ -263,22 +219,6 @@ class _ProductFormState extends State<ProductForm> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const Text(
-                    "Product Id",
-                    style: TextStyle(
-                      fontSize: 23,
-                      color: Color(0xff89967A),
-                    ),
-                  ),
-                  TextFormField(
-                    controller: productIdController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Color(0xff89967A)),
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 20),
-                  const Text(
                     "Product Name",
                     style: TextStyle(
                       fontSize: 23,
@@ -292,6 +232,12 @@ class _ProductFormState extends State<ProductForm> {
                         borderSide: BorderSide(color: Color(0xff89967A)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the product name';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -308,6 +254,12 @@ class _ProductFormState extends State<ProductForm> {
                         borderSide: BorderSide(color: Color(0xff89967A)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the unit price';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -324,10 +276,16 @@ class _ProductFormState extends State<ProductForm> {
                         borderSide: BorderSide(color: Color(0xff89967A)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the total price';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   const Text(
-                    "Product Code",
+                    "Product code",
                     style: TextStyle(
                       fontSize: 23,
                       color: Color(0xff89967A),
@@ -340,6 +298,12 @@ class _ProductFormState extends State<ProductForm> {
                         borderSide: BorderSide(color: Color(0xff89967A)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the product code';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   const Text(
@@ -356,42 +320,49 @@ class _ProductFormState extends State<ProductForm> {
                         borderSide: BorderSide(color: Color(0xff89967A)),
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Please enter the quantity';
+                      }
+                      return null;
+                    },
                   ),
                   const SizedBox(height: 20),
                   SizedBox(
                     child: Center(
                       child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xff89967A),
+                        ),
                         onPressed: () {
                           if (formkey.currentState!.validate()) {
-                            ProductClass newProduct = ProductClass(
-                              productId: productIdController.text,
-                              nameofproduct: productNameController.text,
-                              unitofproduct: unitPriceController.text,
-                              totalofproduct: totalPriceController.text,
-                              imageofproduct: '',
-                              codeofproduct: productCodeController.text,
-                              quantityofproduct: productQuantityController.text,
-                              createdDate: DateTime.now().toString(),
+                            var newProduct = ProductClass(
+                              productNameController.text,
+                              unitPriceController.text,
+                              totalPriceController.text,
+                              '', // Product image is not implemented yet
+                              productCodeController.text,
+                              productQuantityController.text,
                             );
                             widget.onAddProduct(newProduct);
                             Navigator.pop(context);
                           }
                         },
                         child: Padding(
-                          padding: const EdgeInsets.all(8.0),
+                          padding: const EdgeInsets.all(6.0),
                           child: Text(
                             widget.product != null
-                                ? 'Update Product'
-                                : 'Add Product',
+                                ? "Update Product"
+                                : "Add Product",
                             style: const TextStyle(
                               fontSize: 23,
-                              color: Color.fromARGB(255, 72, 75, 67),
+                              color: Colors.white,
                             ),
                           ),
                         ),
                       ),
                     ),
-                  ),
+                  )
                 ],
               ),
             ),
@@ -403,23 +374,18 @@ class _ProductFormState extends State<ProductForm> {
 }
 
 class ProductClass {
-  String productId;
   String nameofproduct;
   String unitofproduct;
   String totalofproduct;
   String imageofproduct;
   String codeofproduct;
   String quantityofproduct;
-  String createdDate;
-
-  ProductClass({
-    required this.productId,
-    required this.nameofproduct,
-    required this.unitofproduct,
-    required this.totalofproduct,
-    required this.imageofproduct,
-    required this.codeofproduct,
-    required this.quantityofproduct,
-    required this.createdDate,
-  });
+  ProductClass(
+    this.nameofproduct,
+    this.unitofproduct,
+    this.totalofproduct,
+    this.imageofproduct,
+    this.codeofproduct,
+    this.quantityofproduct,
+  );
 }
